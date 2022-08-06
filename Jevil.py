@@ -16,12 +16,19 @@ class Jevil(commands.Bot):
         async def on_message(self, message) -> str:
             if message.content.startswith('!'):
                 if 'ping' in message.content:
-                    await _ping(message)
-        
+                    await self._ping(message)
+                elif 'grade' in message.content:
+                    await self._grade(message)
+
+
         def _grade(self, message):
             with requests.Session() as session:
-                    session.auth = ('username', getpass())
-
+                    session.auth = (os.getenv('CHAMILO_USERNAME'), os.getenv('CHAMILO_PASSWORD'))
+                    result = session.get("https://cas-uga.grenet.fr/login")
+                    result = session.post("https://cas-uga.grenet.fr/login")
+                    result = session.get("https://scolarite-informatique.iut2.univ-grenoble-alpes.fr/app/erreur.php") #page down pour le moment ;-;
+                    print(result.text)
+        
         def _ping(self, message):
             return message.channel.send("pong")
 
