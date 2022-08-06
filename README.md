@@ -1,2 +1,2 @@
 # Jevil
-bot fetching grades from chamilo for lazy students
+bot fetching grades from chamilo for lazy students :)
